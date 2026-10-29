@@ -42,9 +42,9 @@ button{font:inherit;color:inherit}
 .bg-orange{background:var(--orange)}
 .bg-ink{background:var(--ink)}
 .bg-blue{background:var(--blue)}
-.pattern::before{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.07;
+.pattern::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.07;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='120'%3E%3Ctext x='0' y='50' font-family='Arial Black,Arial' font-weight='900' font-size='44' fill='white'%3EGO%3C/text%3E%3Ctext x='70' y='105' font-family='Arial Black,Arial' font-weight='900' font-size='44' fill='white'%3EGO%3C/text%3E%3C/svg%3E");
-  transform:rotate(-12deg);animation:drift 40s linear infinite}
+  animation:drift 40s linear infinite}
 @keyframes drift{to{background-position:360px 240px}}
 
 .inner{position:relative;width:100%;max-width:1280px;height:100%;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.4fr);gap:clamp(24px,4vw,64px);align-items:center}
@@ -113,7 +113,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 
 /* ---------- cover ---------- */
 .cover-stage{position:relative;width:min(100%,560px);aspect-ratio:1}
-.cover-logo{position:absolute;inset:14%;border-radius:28px;box-shadow:0 40px 90px -20px rgba(0,0,0,.5)}
+.cover-logo{position:absolute;top:14%;left:14%;width:72%;height:72%;object-fit:cover;border-radius:28px;box-shadow:0 40px 90px -20px rgba(0,0,0,.5)}
 .orbit{position:absolute;width:26%}
 .orbit img{width:100%;height:auto}
 .float{animation:float 6s ease-in-out infinite}
@@ -319,11 +319,13 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   padding-block:calc(20px + env(safe-area-inset-top,0px)) calc(20px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .lightbox img{max-width:100%;max-height:100%;border-radius:10px;animation:pop .45s var(--spring)}
 
-.hint{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));translate:-50% 0;z-index:21;font-family:var(--mono);font-size:12px;background:rgba(0,0,0,.5);padding:8px 14px;border-radius:999px;transition:opacity .6s;pointer-events:none;white-space:nowrap}
+.hint{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));translate:-50% 0;z-index:21;font-family:var(--mono);font-size:12px;background:rgba(0,0,0,.5);padding:8px 14px;border-radius:999px;transition:opacity .6s;pointer-events:none;width:max-content;max-width:calc(100% - 32px);text-align:center}
+.hint .m{display:none}
 
 /* ---------- responsive ---------- */
 @media (max-width:860px){
-  .slide{align-items:flex-start;overflow-y:auto;padding-block:calc(58px + env(safe-area-inset-top,0px)) calc(90px + env(safe-area-inset-bottom,0px))}
+  .hint .d{display:none}.hint .m{display:inline}
+  .slide{align-items:flex-start;overflow-x:hidden;overflow-y:auto;padding-block:calc(58px + env(safe-area-inset-top,0px)) calc(90px + env(safe-area-inset-bottom,0px))}
   .inner,.inner.flip{grid-template-columns:1fr;height:auto;gap:24px;align-content:start}
   .inner.flip .copy{order:0}
   .stage{height:auto}
@@ -338,8 +340,16 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   .formats .f45 img{height:auto;width:100%}
   .formats .f916 img{height:auto;width:100%}
   .formats figure{flex:1}
-  .fan{height:min(60vh,460px)}
-  .acc{height:420px}
+  .fan{height:min(60vh,460px);width:100%}
+  .fan .c1{height:82%}
+  .fan .c2{height:46%;transform:translateX(-72%) rotate(-10deg)}
+  .fan .c3{height:54%;transform:translateX(72%) rotate(10deg)}
+  .fan .c2:hover{transform:translateX(-72%) rotate(-10deg)}
+  .fan .c3:hover{transform:translateX(72%) rotate(10deg)}
+  .acc{height:min(64vh,500px);gap:6px}
+  .pan{flex:.45;border-radius:10px}
+  .pan.cur{flex:5}
+  .pan .num{display:none}
   .arc{height:420px}
   .kb .k{height:auto;width:31%}
   .layer{height:440px}
@@ -756,7 +766,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   </div>
 </nav>
 
-<div class="hint" id="hint">← → para avanzar · clic en una imagen para verla completa</div>
+<div class="hint" id="hint"><span class="d">← → para avanzar · clic en una imagen para verla completa</span><span class="m">Desliza para avanzar · toca una imagen para verla completa</span></div>
 
 <div class="index" id="index" hidden>
   <button class="btn close" id="closeIndex" aria-label="Cerrar índice">✕</button>
