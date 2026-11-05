@@ -124,11 +124,12 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 .o4{bottom:-2%;right:-4%;rotate:-6deg}
 
 /* ---------- route ---------- */
-.route{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;width:100%;margin-top:28px;position:relative}
+.route{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;width:100%;margin-top:28px;position:relative}
 .route::before{content:"";position:absolute;left:4%;right:4%;top:34px;border-top:3px dashed rgba(255,255,255,.55)}
 .step{position:relative;display:flex;flex-direction:column;gap:10px;align-items:flex-start;text-align:left;min-width:0}
 .step .n{width:68px;height:68px;border-radius:50%;background:var(--white);color:var(--orange);font-weight:900;font-size:26px;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.35)}
 .step:nth-child(5) .n{background:var(--blue);color:var(--white)}
+.step:nth-child(6) .n{background:var(--ink);color:var(--white)}
 .step h3{margin:0;font-size:clamp(16px,1.6vw,22px);font-weight:900;text-transform:uppercase}
 .step p{margin:0;font-size:14px;line-height:1.45;font-weight:500;opacity:.9}
 .step .count{font-family:var(--mono);font-size:12px;opacity:.85}
@@ -281,6 +282,137 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 .stats span{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
 .closing-card{background:var(--ink);color:var(--white);border-radius:24px;padding:28px clamp(20px,4vw,48px);box-shadow:0 30px 70px -20px rgba(0,0,0,.6)}
 
+/* ---------- repartidores: requirement checklist ---------- */
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:460px}
+.checks div{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:10px 12px;font-weight:800;font-size:14px}
+.checks i{flex:0 0 26px;height:26px;border-radius:50%;background:var(--blue);display:grid;place-items:center}
+.checks i svg{width:14px;height:14px}
+.sticker{position:absolute;left:-10%;top:30%;background:var(--blue);color:var(--white);font-weight:900;font-size:15px;padding:12px 16px;border-radius:14px;rotate:-6deg;box-shadow:0 16px 30px -10px rgba(0,0,0,.5);line-height:1.15}
+.sticker small{display:block;font-family:var(--mono);font-weight:500;font-size:11px;opacity:.9}
+.post-hero{position:relative}
+.post-hero img{height:min(64vh,600px);width:auto;max-width:100%}
+
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:10px;max-width:460px}
+.faq div{background:var(--white);color:var(--ink);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;box-shadow:0 10px 24px -12px rgba(0,0,0,.4)}
+.faq b{font-size:15px;font-weight:900}
+.faq span{font-size:13px;font-weight:600}
+.faq em{font-style:normal;background:var(--blue);color:var(--white);border-radius:6px;padding:1px 6px;font-weight:800}
+
+/* stepper (tu primer día) */
+.st-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;max-width:440px}
+.st-list button{width:100%;text-align:left;border:0;background:transparent;color:inherit;display:grid;grid-template-columns:34px 1fr;gap:2px 12px;align-items:center;padding:8px 10px;border-radius:12px;cursor:pointer;position:relative;overflow:hidden;transition:background .3s}
+.st-list .n{grid-row:span 2;width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.4);display:grid;place-items:center;font-family:var(--mono);font-size:12px;transition:background .3s,border-color .3s}
+.st-list b{font-size:14px;font-weight:800}
+.st-list small{font-size:12px;opacity:.75;font-weight:500}
+.st-list .bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--blue)}
+.st-list li.cur button{background:rgba(255,255,255,.1)}
+.st-list li.cur .n{background:var(--blue);border-color:var(--blue)}
+.st-list li.cur .bar{animation:fill var(--dur,3.2s) linear forwards}
+.st-list li.done .n{background:var(--white);color:var(--ink);border-color:var(--white)}
+.st-img{position:relative;height:min(64vh,600px);aspect-ratio:4/5;max-width:100%}
+.st-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:translateX(40px) rotate(3deg);transition:opacity .6s var(--ease),transform .7s var(--ease);cursor:zoom-in}
+.st-img img.cur{opacity:1;transform:none;z-index:2}
+.st-img img.prev{opacity:0;transform:translateX(-40px) rotate(-3deg)}
+
+/* moments chips */
+.moments{display:flex;flex-wrap:wrap;gap:6px;align-items:center;max-width:460px}
+.moments span{background:rgba(255,255,255,.14);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800}
+.moments i{opacity:.6;font-style:normal}
+
+/* ---------- budget: tiers ---------- */
+.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;width:100%;align-items:stretch}
+.tier{position:relative;background:var(--ink-2);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:22px 20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.tier.rec{background:var(--orange);border-color:var(--orange);transform:translateY(-10px);box-shadow:0 30px 60px -20px rgba(255,90,18,.55)}
+.tier .badge{position:absolute;top:-12px;left:20px;background:var(--blue);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.tier h3{margin:0;font-size:18px;font-weight:900;text-transform:uppercase}
+.tier .amt{font-size:clamp(34px,4vw,52px);font-weight:900;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.tier .amt small{font-size:14px;font-weight:600;letter-spacing:0;opacity:.85;margin-left:4px}
+.tier dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13px}
+.tier dt{opacity:.75}
+.tier dd{margin:0;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.tier p{margin:0;font-size:13px;line-height:1.45;opacity:.9}
+.note{font-family:var(--mono);font-size:11px;letter-spacing:.04em;opacity:.75;line-height:1.5;max-width:90ch}
+
+/* ---------- budget: gantt ---------- */
+.gantt-wrap{width:100%;overflow-x:auto;padding-bottom:6px}
+.gantt{display:grid;grid-template-columns:150px repeat(8,minmax(64px,1fr));gap:6px;min-width:720px;align-items:center}
+.gantt .h{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.8;text-align:center}
+.gantt .lbl{font-weight:800;font-size:13px;line-height:1.2}
+.gantt .lbl small{display:block;font-family:var(--mono);font-weight:500;font-size:11px;opacity:.75}
+.gantt .bar{height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink);transform-origin:left center}
+.slide.on .gantt .bar{animation:grow .8s var(--ease) both;animation-delay:calc(var(--d,0)*1ms)}
+@keyframes grow{from{transform:scaleX(0);opacity:0}}
+.gantt .c1{background:var(--orange);color:var(--white)}
+.gantt .c2{background:var(--blue);color:var(--white)}
+.gantt .c3{background:var(--white)}
+.gantt .c4{background:#FFB27A}
+.gantt .c5{background:#8FD0FF}
+.gantt .tot{font-family:var(--mono);font-size:12px;text-align:center;font-weight:500;border-top:2px solid rgba(255,255,255,.3);padding-top:8px;font-variant-numeric:tabular-nums}
+.gantt .tot.l{text-align:left;font-family:var(--body);font-weight:800;font-size:13px}
+
+/* ---------- budget: stage cards ---------- */
+.stages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;width:100%}
+.stg{background:var(--white);color:var(--ink);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0;box-shadow:0 20px 40px -20px rgba(0,0,0,.5)}
+.stg .tag{align-self:flex-start;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;color:var(--white)}
+.stg h3{margin:0;font-size:16px;font-weight:900;text-transform:uppercase;line-height:1.1}
+.stg .th{display:flex;gap:4px}
+.stg .th img{width:30%;aspect-ratio:4/5;object-fit:cover;border-radius:6px;cursor:zoom-in}
+.stg dl{margin:0;display:flex;flex-direction:column;gap:6px;font-size:12px;line-height:1.35}
+.stg dt{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--orange-deep)}
+.stg dd{margin:0;font-weight:600}
+
+/* ---------- budget: calculator ---------- */
+.calc{width:100%;background:var(--ink);border-radius:24px;padding:24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:24px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+.calc label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.8}
+.calc .daily{font-size:clamp(44px,6vw,76px);font-weight:900;line-height:1;font-variant-numeric:tabular-nums;color:var(--orange)}
+.calc .daily small{font-size:16px;color:var(--white);opacity:.8;font-weight:600}
+.calc input[type=range]{width:100%;accent-color:var(--orange);height:28px;cursor:pointer}
+.weeks{display:flex;gap:6px}
+.weeks button{border:1.5px solid rgba(255,255,255,.3);background:transparent;border-radius:999px;padding:8px 14px;font-weight:800;cursor:pointer}
+.weeks button[aria-pressed="true"]{background:var(--white);color:var(--ink);border-color:var(--white)}
+.calc-left{display:flex;flex-direction:column;gap:14px;min-width:0}
+.outs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;min-width:0}
+.out{background:var(--ink-2);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.out span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+.out b{font-size:clamp(18px,2vw,26px);font-weight:900;font-variant-numeric:tabular-nums}
+.out.hl{background:var(--orange)}
+.cpr{grid-column:1/-1;display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:13px;border-top:1px solid rgba(255,255,255,.15);padding-top:10px}
+.cpr b{font-variant-numeric:tabular-nums;text-align:right}
+.cpr .t{grid-column:1/-1;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
+
+/* ---------- budget: operating loop ---------- */
+.loop{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:100%;position:relative}
+.loop .lp{background:var(--white);color:var(--ink);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px;position:relative;min-width:0}
+.loop .lp .d{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-deep)}
+.loop .lp h3{margin:0;font-size:17px;font-weight:900}
+.loop .lp p{margin:0;font-size:13px;line-height:1.45;font-weight:500}
+.loop .lp:not(:last-child)::after{content:"→";position:absolute;right:-12px;top:50%;translate:50% -50%;color:var(--white);font-weight:900;font-size:20px;z-index:2}
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:100%}
+.rules div{border:1.5px solid rgba(255,255,255,.35);border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.45;font-weight:500}
+.rules b{display:block;font-size:14px;font-weight:900;margin-bottom:2px}
+.bg-blue .chip.fill{color:var(--blue-deep)}
+
+@media (max-width:860px){
+  .post-hero img{height:auto;width:min(100%,360px)}
+  .sticker{display:none}
+  .st-img{height:auto;width:min(100%,380px)}
+  .st-list{flex-direction:row;flex-wrap:wrap;gap:6px}
+  .st-list li{flex:0 0 auto}
+  .st-list button{grid-template-columns:28px auto;padding:6px 10px 6px 6px;background:rgba(255,255,255,.08)}
+  .st-list .n{width:28px;height:28px;grid-row:auto}
+  .st-list small{display:none}
+  .tiers{grid-template-columns:1fr;gap:20px}
+  .tier.rec{transform:none;order:-1}
+  .stages{grid-template-columns:1fr}
+  .stg{flex-direction:column}
+  .calc{grid-template-columns:1fr;padding:18px}
+  .loop{grid-template-columns:1fr 1fr}
+  .loop .lp:nth-child(2)::after{display:none}
+  .rules{grid-template-columns:1fr}
+  .checks{grid-template-columns:1fr 1fr}
+}
+
 /* ---------- chrome ---------- */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:14px;
   padding-top:calc(14px + env(safe-area-inset-top,0px));padding-bottom:10px;
@@ -376,8 +508,8 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
       <div class="copy">
         <div class="eyebrow a rise" style="--d:100"><b>Campaña 2026</b> Acámbaro, Gto.</div>
         <h1 class="a rise" style="--d:200">GOGO<br>FOOD</h1>
-        <p class="lead a rise" style="--d:350">Todos los anuncios de la campaña de lanzamiento: identidad, expectativa, usuarios y restaurantes.</p>
-        <div class="chips a rise" style="--d:500"><span class="chip fill">46 piezas</span><span class="chip">2 videos</span><span class="chip">1:1 · 4:5 · 9:16</span></div>
+        <p class="lead a rise" style="--d:350">Todos los anuncios de la campaña de lanzamiento (usuarios, restaurantes y repartidores) y el plan de pauta en redes.</p>
+        <div class="chips a rise" style="--d:500"><span class="chip fill">58 piezas</span><span class="chip">3 videos</span><span class="chip">1:1 · 4:5 · 9:16</span></div>
       </div>
       <div class="stage">
         <div class="cover-stage">
@@ -395,7 +527,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   <section class="slide bg-orange" data-title="Ruta de la campaña">
     <div class="inner center" style="align-content:center">
       <div class="copy" style="align-items:center">
-        <div class="eyebrow a rise"><b>Ruta</b> 5 fases</div>
+        <div class="eyebrow a rise"><b>Ruta</b> 6 fases + pauta</div>
         <h2 class="a rise" style="--d:120">Cómo se cuenta <span class="hl">GOGO</span></h2>
       </div>
       <div class="route">
@@ -404,6 +536,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
         <div class="step a rise" style="--d:510"><div class="n">03</div><div><h3>Lanzamiento</h3><p>¡Ya llegó a tu ciudad!</p><span class="count">3 formatos</span></div></div>
         <div class="step a rise" style="--d:640"><div class="n">04</div><div><h3>Usuarios</h3><p>Qué es, antojos, cómo pedir y descarga.</p><span class="count">19 piezas</span></div></div>
         <div class="step a rise" style="--d:770"><div class="n">05</div><div><h3>Restaurantes</h3><p>Vender más sin contratar repartidores.</p><span class="count">17 piezas + video</span></div></div>
+        <div class="step a rise" style="--d:900"><div class="n">06</div><div><h3>Repartidores</h3><p>Ingreso extra con horario libre.</p><span class="count">12 piezas + video</span></div></div>
       </div>
     </div>
   </section>
@@ -733,7 +866,304 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
     </div>
   </section>
 
-  <!-- 18 · Cierre -->
+  <!-- 18 · Divider repartidores -->
+  <section class="slide bg-ink pattern" data-title="Para repartidores">
+    <div class="inner center divider" style="align-content:center">
+      <div class="copy" style="align-items:center">
+        <div class="eyebrow a rise"><b>Fase 06</b> Repartidores</div>
+        <h1 class="a rise" style="--d:150">Para<br><span class="hl o">repartidores</span></h1>
+        <p class="lead a rise" style="--d:300;text-align:center">Ingreso extra con tu moto, en el horario que tú elijas.</p>
+        <svg class="scooter" viewBox="0 0 120 80" fill="none" aria-hidden="true">
+          <circle cx="24" cy="62" r="13" stroke="#fff" stroke-width="6"/><circle cx="96" cy="62" r="13" stroke="#fff" stroke-width="6"/>
+          <path d="M24 62h30l14-24h18l10 24" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="18" y="20" width="30" height="26" rx="5" fill="#FF5A12"/><path d="M80 38l6-22h10" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 19 · Buscamos repartidores -->
+  <section class="slide bg-orange pattern" data-title="Buscamos repartidores" data-thumb="assets/rep-buscamos-repartidores.webp">
+    <div class="inner">
+      <div class="copy">
+        <div class="eyebrow a rise"><b>Fase 06</b> Repartidores</div>
+        <h2 class="a rise" style="--d:120">Buscamos <span class="hl">repartidores</span></h2>
+        <p class="lead a rise" style="--d:240">Post de reclutamiento: dinero extra, horario libre y requisitos mínimos, con espacio para el link y el QR de registro.</p>
+        <div class="checks">
+          <div class="a pop" style="--d:420"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></i>Moto</div>
+          <div class="a pop" style="--d:540"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></i>INE</div>
+          <div class="a pop" style="--d:660"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></i>Celular</div>
+          <div class="a pop" style="--d:780"><i><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></i>Cuenta bancaria</div>
+        </div>
+        <div class="chips a rise" style="--d:900"><span class="chip fill">Feed 4:5</span><span class="chip">Reclutamiento</span></div>
+      </div>
+      <div class="stage">
+        <div class="post-hero">
+          <img class="shot a pop" style="--d:200" src="assets/rep-buscamos-repartidores.webp" alt="Post Buscamos repartidores, elige tus horarios" data-zoom>
+          <div class="sticker a drop" style="--d:800">Tú pones el horario<small>Repartes cuando te convenga</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 20 · Dudas de repartidores -->
+  <section class="slide bg-ink" data-title="Dudas de repartidores" data-thumb="assets/rep-duda-horarios.webp">
+    <div class="inner flip">
+      <div class="copy">
+        <div class="eyebrow a rise"><b>Fase 06</b> Repartidores</div>
+        <h2 class="a rise" style="--d:120">Dudas de <span class="hl o">repartidores</span></h2>
+        <p class="lead a rise" style="--d:240">Serie de stories que responde lo que preguntan antes de registrarse y cierra con “Desliza para registrarte”.</p>
+        <div class="faq">
+          <div class="a rise" style="--d:360"><b>¿Yo elijo mis horarios?</b><span><em>Sí, tú decides.</em> Repartes cuando te convenga.</span></div>
+          <div class="a rise" style="--d:480"><b>¿Puedo repartir en bici?</b><span><em>Solo en moto.</em> Más rápido y con más agilidad.</span></div>
+          <div class="a rise" style="--d:600"><b>¿Qué necesito para registrarme?</b><span><em>Solo 3 cosas:</em> INE, celular y cuenta bancaria.</span></div>
+        </div>
+      </div>
+      <div class="stage" style="gap:22px">
+        <div class="thumbs a rise" style="--d:500" data-story-thumbs>
+          <img src="assets/rep-duda-horarios.webp" alt="">
+          <img src="assets/rep-duda-bici.webp" alt="">
+          <img src="assets/rep-duda-requisitos.webp" alt="">
+          <img src="assets/rep-duda-ya-no-tienes-dudas.webp" alt="">
+        </div>
+        <div class="phone a pop" style="--d:200">
+          <div class="screen story" data-story>
+            <div class="bars"></div>
+            <div class="story-head"><span>GO<br>GO</span>gogofood</div>
+            <img src="assets/rep-duda-horarios.webp" alt="Story: ¿Yo elijo mis horarios? Sí, tú decides" data-zoom>
+            <img src="assets/rep-duda-bici.webp" alt="Story: ¿Puedo repartir en bici? Solo en moto" data-zoom>
+            <img src="assets/rep-duda-requisitos.webp" alt="Story: ¿Qué necesito para registrarme? Solo 3 cosas" data-zoom>
+            <img src="assets/rep-duda-ya-no-tienes-dudas.webp" alt="Story: ¿Ya no tienes dudas? Desliza para registrarte" data-zoom>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 21 · Tu primer día -->
+  <section class="slide bg-orange pattern" data-title="Tu primer día en GOGO" data-thumb="assets/rep-primer-dia-01.webp">
+    <div class="inner">
+      <div class="copy">
+        <div class="eyebrow a rise"><b>Fase 06</b> Carrusel 4:5 · 7 láminas</div>
+        <h2 class="a rise" style="--d:120">Tu primer día en la app <span class="hl">GOGO</span></h2>
+        <ol class="st-list a rise" style="--d:260" data-stepper-list="pd">
+          <li><button><span class="n">01</span><b>Portada</b><small>5 pasos sin complicarte</small><i class="bar"></i></button></li>
+          <li><button><span class="n">02</span><b>Ponte disponible</b><small>Activa el interruptor</small><i class="bar"></i></button></li>
+          <li><button><span class="n">03</span><b>Acepta el pedido</b><small>La alerta tiene tiempo límite</small><i class="bar"></i></button></li>
+          <li><button><span class="n">04</span><b>Recoge en el restaurante</b><small>Revisa que esté completo</small><i class="bar"></i></button></li>
+          <li><button><span class="n">05</span><b>Entrega y confirma</b><small>Toca “Confirmar entrega”</small><i class="bar"></i></button></li>
+          <li><button><span class="n">06</span><b>Revisa tus ganancias</b><small>Envíos y propinas del día</small><i class="bar"></i></button></li>
+          <li><button><span class="n">07</span><b>Soporte GOGO</b><small>WhatsApp y horario</small><i class="bar"></i></button></li>
+        </ol>
+      </div>
+      <div class="stage">
+        <div class="st-img a pop" style="--d:200" data-stepper="pd">
+          <img class="shot" src="assets/rep-primer-dia-01.webp" alt="Tu primer día en la app GOGO" data-zoom>
+          <img class="shot" src="assets/rep-primer-dia-02.webp" alt="Paso 01: ponte disponible" data-zoom>
+          <img class="shot" src="assets/rep-primer-dia-03.webp" alt="Paso 02: acepta el pedido" data-zoom>
+          <img class="shot" src="assets/rep-primer-dia-04.webp" alt="Paso 03: recoge en el restaurante" data-zoom>
+          <img class="shot" src="assets/rep-primer-dia-05.webp" alt="Paso 04: entrega y confirma" data-zoom>
+          <img class="shot" src="assets/rep-primer-dia-06.webp" alt="Revisa tus ganancias" data-zoom>
+          <img class="shot" src="assets/rep-primer-dia-07.webp" alt="Soporte GOGO: escríbenos" data-zoom>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 22 · Video un día como repartidor -->
+  <section class="slide bg-ink" data-title="Un día como repartidor">
+    <div class="inner flip">
+      <div class="copy">
+        <div class="eyebrow a rise"><b>Fase 06</b> Video</div>
+        <h2 class="a rise" style="--d:120">Un día como <span class="hl o">repartidor</span></h2>
+        <p class="lead a rise" style="--d:240">Video vertical POV de 29 segundos: el día completo de un repartidor, de ponerse disponible a cobrar.</p>
+        <div class="moments a rise" style="--d:360"><span>Disponible</span><i>→</i><span>Acepta</span><i>→</i><span>Recoge</span><i>→</i><span>Entrega</span><i>→</i><span>Ganancias</span><i>→</i><span>Tú decides</span></div>
+        <button class="sound a rise" style="--d:480" data-sound aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg><span>Activar sonido</span></button>
+      </div>
+      <div class="stage">
+        <div class="phone a pop" style="--d:200"><div class="screen"><video src="assets/rep-un-dia.mp4" muted loop playsinline preload="metadata" data-video></video></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 23 · Divider pauta -->
+  <section class="slide bg-blue pattern" data-title="Pauta en redes">
+    <div class="inner center divider" style="align-content:center">
+      <div class="copy" style="align-items:center">
+        <div class="eyebrow a rise"><b>Plan de pauta</b> Facebook + Instagram</div>
+        <h1 class="a rise" style="--d:150">Pauta en<br>redes</h1>
+        <p class="lead a rise" style="--d:300;text-align:center">Cuánto invertir, en qué orden y cómo se maneja la campaña pagada en Acámbaro.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 24 · Inversión -->
+  <section class="slide bg-ink" data-title="Cuánto invertir">
+    <div class="inner stacked">
+      <div class="copy">
+        <div>
+          <div class="eyebrow a rise"><b>Presupuesto</b> 8 semanas de pauta</div>
+          <h2 class="a rise" style="--d:120">Cuánto <span class="hl o">invertir</span></h2>
+        </div>
+        <p class="lead a rise" style="--d:240">Tres niveles para las 8 semanas de lanzamiento. Las cantidades son solo pauta en Meta (lo que se le paga a Facebook e Instagram).</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;width:100%">
+        <div class="tiers">
+          <div class="tier a rise" style="--d:300">
+            <h3>Arranque</h3>
+            <div class="amt">$<span data-count="7200">0</span><small>MXN</small></div>
+            <dl><dt>Al día</dt><dd>≈ $130</dd><dt>Con IVA</dt><dd>$8,352</dd><dt>Impresiones</dt><dd>160–290 mil</dd></dl>
+            <p>Para probar qué piezas funcionan. Cubre las 5 etapas, pero con menos repeticiones.</p>
+          </div>
+          <div class="tier rec a rise" style="--d:420">
+            <span class="badge">Recomendado</span>
+            <h3>Lanzamiento</h3>
+            <div class="amt">$<span data-count="12000">0</span><small>MXN</small></div>
+            <dl><dt>Al día</dt><dd>≈ $215</dd><dt>Con IVA</dt><dd>$13,920</dd><dt>Impresiones</dt><dd>270–480 mil</dd></dl>
+            <p>El público de Acámbaro ve los anuncios varias veces por semana sin saturarse.</p>
+          </div>
+          <div class="tier a rise" style="--d:540">
+            <h3>Intensivo</h3>
+            <div class="amt">$<span data-count="19200">0</span><small>MXN</small></div>
+            <dl><dt>Al día</dt><dd>≈ $345</dd><dt>Con IVA</dt><dd>$22,272</dd><dt>Impresiones</dt><dd>430–770 mil</dd></dl>
+            <p>Conviene solo si se amplía a Maravatío u otras ciudades; en Acámbaro solo se satura.</p>
+          </div>
+        </div>
+        <p class="note a rise" style="--d:700">Estimación con un costo de $25–$45 MXN por mil impresiones para un público local; el promedio nacional de México en 2026 es menor (≈ $15 MXN), pero las ciudades chicas cuestan más. Meta cobra IVA del 16 %. No incluye producción de contenido.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 25 · Calendario -->
+  <section class="slide bg-ink" data-title="Calendario de pauta">
+    <div class="inner stacked">
+      <div class="copy">
+        <div>
+          <div class="eyebrow a rise"><b>Dinámica</b> Plan recomendado · $12,000</div>
+          <h2 class="a rise" style="--d:120">Primero la oferta, <span class="hl">luego los clientes</span></h2>
+        </div>
+        <p class="lead a rise" style="--d:240">Antes de anunciar la app hay que tener restaurantes y repartidores listos. Por eso la pauta arranca con ellos y los usuarios entran en la semana 4.</p>
+      </div>
+      <div class="gantt-wrap a rise" style="--d:300">
+        <div class="gantt">
+          <span></span><span class="h">Sem 1</span><span class="h">Sem 2</span><span class="h">Sem 3</span><span class="h">Sem 4</span><span class="h">Sem 5</span><span class="h">Sem 6</span><span class="h">Sem 7</span><span class="h">Sem 8</span>
+
+          <span class="lbl">Repartidores<small>$2,400</small></span>
+          <span class="bar c1" style="grid-column:2;--d:400">$900</span><span class="bar c1" style="grid-column:3;--d:450">$800</span><span class="bar c1" style="grid-column:4;--d:500">$700</span>
+
+          <span class="lbl" style="grid-column:1">Restaurantes<small>$1,800</small></span>
+          <span class="bar c2" style="grid-column:2;--d:500">$700</span><span class="bar c2" style="grid-column:3;--d:550">$600</span><span class="bar c2" style="grid-column:6;--d:700">$500</span>
+
+          <span class="lbl" style="grid-column:1">Expectativa<small>$1,800</small></span>
+          <span class="bar c3" style="grid-column:3;--d:600">$600</span><span class="bar c3" style="grid-column:4;--d:650">$1,200</span>
+
+          <span class="lbl" style="grid-column:1">Lanzamiento y usuarios<small>$4,800</small></span>
+          <span class="bar c4" style="grid-column:5;--d:700">$1,600</span><span class="bar c4" style="grid-column:6;--d:750">$1,000</span><span class="bar c4" style="grid-column:7;--d:800">$800</span><span class="bar c4" style="grid-column:8;--d:850">$700</span><span class="bar c4" style="grid-column:9;--d:900">$700</span>
+
+          <span class="lbl" style="grid-column:1">Retargeting<small>$1,200</small></span>
+          <span class="bar c5" style="grid-column:6;--d:800">$300</span><span class="bar c5" style="grid-column:7;--d:850">$300</span><span class="bar c5" style="grid-column:8;--d:900">$300</span><span class="bar c5" style="grid-column:9;--d:950">$300</span>
+
+          <span class="tot l">Total semana</span><span class="tot">$1,600</span><span class="tot">$2,000</span><span class="tot">$1,900</span><span class="tot">$1,600</span><span class="tot">$1,800</span><span class="tot">$1,100</span><span class="tot">$1,000</span><span class="tot">$1,000</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 26 · Qué corre en cada etapa -->
+  <section class="slide bg-orange pattern" data-title="Qué corre en cada etapa">
+    <div class="inner stacked">
+      <div class="copy">
+        <div>
+          <div class="eyebrow a rise"><b>Dinámica</b> 5 etapas</div>
+          <h2 class="a rise" style="--d:120">Qué corre en cada <span class="hl">etapa</span></h2>
+        </div>
+        <p class="lead a rise" style="--d:240">Cada etapa tiene su propio objetivo en Meta, sus piezas, su público y un solo número para medirla.</p>
+      </div>
+      <div class="stages">
+        <div class="stg a rise" style="--d:300"><span class="tag" style="background:var(--orange)">Sem 1–3</span><h3>Repartidores</h3>
+          <div class="th"><img src="assets/rep-buscamos-repartidores.webp" alt="" data-zoom><img src="assets/rep-duda-requisitos.webp" alt="" data-zoom><img src="assets/rep-primer-dia-01.webp" alt="" data-zoom></div>
+          <dl><dt>Objetivo</dt><dd>Clientes potenciales (formulario o WhatsApp)</dd><dt>Público</dt><dd>18–45 años, Acámbaro + 12 km, interés en motos y empleo</dd><dt>Se mide</dt><dd>Costo por registro</dd></dl></div>
+        <div class="stg a rise" style="--d:400"><span class="tag" style="background:var(--blue)">Sem 1–2 y 5</span><h3>Restaurantes</h3>
+          <div class="th"><img src="assets/1-carrusel-porque-vender-en-gogo-01.webp" alt="" data-zoom><img src="assets/2-story-restaurantes-story-beneficios-para-el-negocio-01.webp" alt="" data-zoom><img src="assets/3-post-registra-tu-restaurante-en-24h-copia-01.webp" alt="" data-zoom></div>
+          <dl><dt>Objetivo</dt><dd>Mensajes a WhatsApp</dd><dt>Público</dt><dd>25–55 años, dueños y administradores de negocios</dd><dt>Se mide</dt><dd>Conversaciones y altas</dd></dl></div>
+        <div class="stg a rise" style="--d:500"><span class="tag" style="background:var(--ink)">Sem 2–3</span><h3>Expectativa</h3>
+          <div class="th"><img src="assets/story-algo-se-esta-cocinando-01.webp" alt="" data-zoom><img src="assets/uno-copia.webp" alt="" data-zoom><img src="assets/story-algo-se-esta-cocinando-03.webp" alt="" data-zoom></div>
+          <dl><dt>Objetivo</dt><dd>Alcance y reproducciones del teaser</dd><dt>Público</dt><dd>18–45 años, Acámbaro + 12 km</dd><dt>Se mide</dt><dd>Lugares de la white list</dd></dl></div>
+        <div class="stg a rise" style="--d:600"><span class="tag" style="background:var(--orange-deep)">Sem 4–8</span><h3>Lanzamiento</h3>
+          <div class="th"><img src="assets/post-1-gogo-llego-a-tu-ciudad-02.webp" alt="" data-zoom><img src="assets/post-2-carrousel-que-es-gogo-01.webp" alt="" data-zoom><img src="assets/post-de-descarga-app-05.webp" alt="" data-zoom></div>
+          <dl><dt>Objetivo</dt><dd>Instalaciones de la app</dd><dt>Público</dt><dd>18–45 años, Acámbaro + 12 km</dd><dt>Se mide</dt><dd>Costo por descarga</dd></dl></div>
+        <div class="stg a rise" style="--d:700"><span class="tag" style="background:var(--blue-deep)">Sem 5–8</span><h3>Retargeting</h3>
+          <div class="th"><img src="assets/post-4-carrusel-pide-en-3-pasos-01.webp" alt="" data-zoom><img src="assets/post-3-todos-tus-antojos-en-un-solo-lugar-03.webp" alt="" data-zoom><img src="assets/post-4-carrusel-pide-en-3-pasos-05.webp" alt="" data-zoom></div>
+          <dl><dt>Objetivo</dt><dd>Instalaciones y primer pedido</dd><dt>Público</dt><dd>Quien vio el 50 % de un video o interactuó con la página en 30 días</dd><dt>Se mide</dt><dd>Primeros pedidos</dd></dl></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 27 · Calculadora -->
+  <section class="slide bg-orange" data-title="Calculadora de pauta">
+    <div class="inner stacked">
+      <div class="copy">
+        <div>
+          <div class="eyebrow a rise"><b>Calculadora</b> Mueve el presupuesto diario</div>
+          <h2 class="a rise" style="--d:120">¿Cuánto rinde tu <span class="hl">presupuesto?</span></h2>
+        </div>
+        <p class="lead a rise" style="--d:240">Rangos estimados para un público local en Meta. Se ajustan con los datos reales de la primera semana.</p>
+      </div>
+      <div class="calc a rise" style="--d:300" data-calc>
+        <div class="calc-left">
+          <label for="calcDaily">Presupuesto diario</label>
+          <div class="daily">$<span data-o="daily">215</span><small> MXN al día</small></div>
+          <input type="range" id="calcDaily" min="50" max="600" step="5" value="215" aria-label="Presupuesto diario en pesos">
+          <label>Duración</label>
+          <div class="weeks" role="group" aria-label="Duración de la campaña">
+            <button data-w="4" aria-pressed="false">4 semanas</button>
+            <button data-w="8" aria-pressed="true">8 semanas</button>
+            <button data-w="12" aria-pressed="false">12 semanas</button>
+          </div>
+        </div>
+        <div class="outs">
+          <div class="out hl"><span>Total de pauta</span><b data-o="total">$12,040</b></div>
+          <div class="out"><span>Total con IVA</span><b data-o="iva">$13,966</b></div>
+          <div class="out"><span>Impresiones</span><b data-o="imp">268–482 mil</b></div>
+          <div class="out"><span>Clics al anuncio</span><b data-o="clk">2,700–7,200</b></div>
+          <div class="cpr">
+            <span class="t">Costo por resultado (referencia inicial)</span>
+            <span>Mensaje de WhatsApp</span><b>$8–$20</b>
+            <span>Registro de repartidor</span><b>$20–$50</b>
+            <span>Descarga de la app</span><b>$15–$40</b>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 28 · Cómo se maneja -->
+  <section class="slide bg-blue pattern" data-title="Cómo se maneja la pauta">
+    <div class="inner stacked">
+      <div class="copy">
+        <div>
+          <div class="eyebrow a rise"><b>Dinámica</b> Ciclo semanal</div>
+          <h2 class="a rise" style="--d:120">Cómo se maneja <span class="hl" style="background:var(--orange)">la pauta</span></h2>
+        </div>
+        <p class="lead a rise" style="--d:240">Se publica todo de forma orgánica y solo se paga por lo que mejor responde.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;width:100%">
+        <div class="loop">
+          <div class="lp a rise" style="--d:300"><span class="d">Día 1</span><h3>Lanzar</h3><p>2 o 3 anuncios por público, en Stories/Reels (9:16) y Feed (4:5).</p></div>
+          <div class="lp a rise" style="--d:420"><span class="d">Días 1–3</span><h3>Aprender</h3><p>No se toca nada: Meta necesita unos días para encontrar a quién mostrarlo.</p></div>
+          <div class="lp a rise" style="--d:540"><span class="d">Día 4</span><h3>Ajustar</h3><p>Se apaga el anuncio más caro por resultado y su dinero pasa al mejor.</p></div>
+          <div class="lp a rise" style="--d:660"><span class="d">Cada lunes</span><h3>Reportar</h3><p>Gasto, alcance, resultados, costo por resultado y cambios de la semana.</p></div>
+        </div>
+        <div class="rules">
+          <div class="a rise" style="--d:780"><b>Área</b>Acámbaro y 12 km alrededor. Maravatío se suma solo si el reparto llega ahí.</div>
+          <div class="a rise" style="--d:880"><b>Un solo número por etapa</b>Registros, conversaciones o descargas; no se juzga por “me gusta”.</div>
+          <div class="a rise" style="--d:980"><b>Links listos antes de pagar</b>Formulario de repartidores, WhatsApp de restaurantes y la app publicada en las tiendas.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cierre -->
   <section class="slide bg-orange" data-title="Gracias">
     <div class="mosaic" data-mosaic></div>
     <div class="closing">
@@ -741,9 +1171,9 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
         <div class="eyebrow a rise" style="--d:500;justify-content:center"><b>GOGO FOOD</b> Campaña de lanzamiento</div>
         <h1 class="a rise" style="--d:600">Gracias</h1>
         <div class="stats a rise" style="--d:800">
-          <div><b data-count="46">0</b><span>piezas</span></div>
-          <div><b data-count="2">0</b><span>videos</span></div>
-          <div><b data-count="5">0</b><span>fases</span></div>
+          <div><b data-count="58">0</b><span>piezas</span></div>
+          <div><b data-count="3">0</b><span>videos</span></div>
+          <div><b data-count="6">0</b><span>fases</span></div>
         </div>
       </div>
     </div>
@@ -753,7 +1183,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 <header class="topbar">
   <div class="brand">GO<br>GO<small>FOOD</small></div>
   <div class="progress"><b id="bar"></b></div>
-  <div class="counter" id="counter">01 / 18</div>
+  <div class="counter" id="counter">01 / 29</div>
 </header>
 
 <nav class="controls" aria-label="Controles de la presentación">
@@ -855,7 +1285,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   // counters
   slides.forEach((s,i)=>{const els=[...s.querySelectorAll('[data-count]')];if(!els.length)return;let raf;
     widgets[i].push({start:()=>{const t0=performance.now();const D=1400;cancelAnimationFrame(raf);
-      const step=now=>{const p=Math.min(1,(now-t0-400)/D),e=p<0?0:1-Math.pow(1-p,3);els.forEach(el=>el.textContent=Math.round(e*+el.dataset.count));if(p<1)raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step)},
+      const step=now=>{const p=Math.min(1,(now-t0-400)/D),e=p<0?0:1-Math.pow(1-p,3);els.forEach(el=>el.textContent=Math.round(e*+el.dataset.count).toLocaleString('es-MX'));if(p<1)raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step)},
       stop:()=>cancelAnimationFrame(raf)});
   });
 
@@ -863,6 +1293,40 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   const mosaic=document.querySelector('[data-mosaic]');
   if(mosaic){const srcs=[...new Set([...document.querySelectorAll('.slide img[src]')].map(im=>im.getAttribute('src')))];
     let html='';for(let j=0;j<48;j++){html+='<img src="'+srcs[j%srcs.length]+'" alt="" style="--d:'+(j*25)+'">'}mosaic.innerHTML=html}
+
+  // stepper (carrusel paso a paso)
+  document.querySelectorAll('[data-stepper]').forEach(box=>{
+    const imgs=[...box.querySelectorAll('img')];
+    const list=document.querySelector('[data-stepper-list="'+box.dataset.stepper+'"]');
+    const items=list?[...list.children]:[];const DUR=3200;let k=0,t=null;
+    const go=n=>{const prev=k;k=(n+imgs.length)%imgs.length;
+      imgs.forEach((im,j)=>{im.classList.toggle('cur',j===k);im.classList.toggle('prev',j===prev&&j!==k)});
+      items.forEach((li,j)=>{li.classList.remove('cur');li.classList.toggle('done',j<k);li.style.setProperty('--dur',DUR+'ms')});
+      if(items[k]){void items[k].offsetWidth;items[k].classList.add('cur')}
+      clearTimeout(t);t=setTimeout(()=>go(k+1),DUR)};
+    items.forEach((li,j)=>li.querySelector('button').addEventListener('click',()=>go(j)));
+    imgs[0].classList.add('cur');
+    add(box,{start:()=>{k=0;go(0)},stop:()=>clearTimeout(t)});
+  });
+
+  // calculadora de pauta
+  document.querySelectorAll('[data-calc]').forEach(c=>{
+    const range=c.querySelector('input[type=range]'),wb=[...c.querySelectorAll('[data-w]')];
+    const o=n=>c.querySelector('[data-o="'+n+'"]');
+    const money=n=>'$'+Math.round(n).toLocaleString('es-MX');
+    const k=n=>n>=1e6?(n/1e6).toFixed(1).replace('.0','')+' M':Math.round(n/1000)+' mil';
+    const r100=n=>(Math.round(n/100)*100).toLocaleString('es-MX');
+    let weeks=8;
+    const calc=()=>{const d=+range.value,tot=d*weeks*7;
+      o('daily').textContent=d.toLocaleString('es-MX');
+      o('total').textContent=money(tot);o('iva').textContent=money(tot*1.16);
+      const lo=tot/45*1000,hi=tot/25*1000;
+      const a=k(lo),b=k(hi);o('imp').textContent=(a.endsWith(' mil')&&b.endsWith(' mil'))?a.replace(' mil','')+'–'+b:a+' – '+b;
+      o('clk').textContent=r100(lo*0.01)+'–'+r100(hi*0.015)};
+    range.addEventListener('input',calc);
+    wb.forEach(b=>b.addEventListener('click',()=>{weeks=+b.dataset.w;wb.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));calc()}));
+    calc();
+  });
 
   /* ---- navigation ---- */
   function go(n,instant){
@@ -889,6 +1353,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   document.addEventListener('keydown',e=>{
     if(!lb.hidden){if(e.key==='Escape'||e.key===' '||e.key==='Enter'){lb.hidden=true;e.preventDefault()}return}
     if(!idx.hidden){if(e.key==='Escape')idx.hidden=true;return}
+    if(e.target.closest&&e.target.closest('input,textarea,select'))return;
     if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next()}
     else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}
     else if(e.key==='Home')go(0);else if(e.key==='End')go(N-1);
@@ -899,7 +1364,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   let sx=null,sy=null;
   document.getElementById('deck').addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
   document.getElementById('deck').addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
-    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.4&&!e.target.closest('.pano-wrap,.ig-view')){dx<0?next():prev()}sx=null},{passive:true});
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.4&&!e.target.closest('.pano-wrap,.ig-view,input,.gantt-wrap')){dx<0?next():prev()}sx=null},{passive:true});
 
   // lightbox
   document.addEventListener('click',e=>{const im=e.target.closest('img[data-zoom]');if(!im||!im.closest('.slide.on'))return;
