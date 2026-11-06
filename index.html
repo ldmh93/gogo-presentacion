@@ -88,14 +88,15 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 .fmt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;text-align:center}
 
 /* ---------- phone frame ---------- */
-.phone{position:relative;max-width:100%;border-radius:40px;background:#0b0b0b;padding:10px;
+.phone{position:relative;height:min(68vh,640px);aspect-ratio:9/19;max-width:100%;border-radius:40px;background:#0b0b0b;padding:10px;
   box-shadow:0 0 0 2px #333,0 40px 80px -20px rgba(0,0,0,.7)}
-.phone::after{content:"";position:absolute;top:3px;left:50%;width:54px;height:4px;border-radius:2px;background:#2a2a2a;transform:translateX(-50%);z-index:3}
-.screen{position:relative;height:min(calc(68vh - 20px),620px);aspect-ratio:9/16;max-width:100%;border-radius:31px;overflow:hidden;background:var(--orange-deep)}
+.phone::after{content:"";position:absolute;top:18px;left:50%;width:80px;height:22px;border-radius:12px;background:#0b0b0b;transform:translateX(-50%);z-index:3}
+.screen{position:relative;width:100%;height:100%;border-radius:31px;overflow:hidden;background:var(--orange-deep)}
 .screen img,.screen video{width:100%;height:100%;object-fit:cover}
 
 /* story player */
-.story img{position:absolute;inset:0;opacity:0;transition:opacity .6s var(--ease)}
+.story img{position:absolute;inset:0;opacity:0;transition:opacity .6s var(--ease);object-fit:contain;z-index:1}
+.story .blur{position:absolute;inset:-30px;background-size:cover;background-position:center;filter:blur(22px) saturate(1.1);transition:background-image .6s}
 .story img.cur{opacity:1}
 /* the phone sways gently; the artwork inside stays still and uncropped */
 .slide.on .phone.a{animation:pop .9s var(--spring) both,sway 7s ease-in-out infinite alternate;animation-delay:calc(var(--d,0)*1ms),1.2s}
@@ -486,8 +487,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   .step{flex-direction:row;align-items:center}
   .step>div{display:flex;flex-direction:column;gap:4px}
   .step .n{flex:0 0 68px}
-  .screen{height:min(66vh,520px)}
-  .thumbs{display:none}
+  .phone{height:min(70vh,560px)}
   .boards img{height:auto;max-width:48%}
   .formats .f11 img{height:auto;width:100%}
   .formats .f45 img{height:auto;width:100%}
@@ -593,8 +593,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
       <div class="stage" style="gap:22px">
         <div class="phone a pop" style="--d:200">
           <div class="screen story" data-story>
-            <div class="bars"></div>
-            <div class="story-head"><span>GO<br>GO</span>gogofood</div>
+            <div class="bars" hidden></div>
             <img src="assets/story-algo-se-esta-cocinando-01.webp" alt="Story 1: Algo se está cocinando, muy pronto" data-zoom>
             <img src="assets/story-algo-se-esta-cocinando-02.webp" alt="Story 2: Ok, te daremos una pista" data-zoom>
             <img src="assets/story-algo-se-esta-cocinando-03.webp" alt="Story 3: Ya casi" data-zoom>
@@ -950,8 +949,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
         </div>
         <div class="phone a pop" style="--d:200">
           <div class="screen story" data-story>
-            <div class="bars"></div>
-            <div class="story-head"><span>GO<br>GO</span>gogofood</div>
+            <div class="bars" hidden></div>
             <img src="assets/rep-duda-horarios.webp" alt="Story: ¿Yo elijo mis horarios? Sí, tú decides" data-zoom>
             <img src="assets/rep-duda-bici.webp" alt="Story: ¿Puedo repartir en bici? Solo en moto" data-zoom>
             <img src="assets/rep-duda-requisitos.webp" alt="Story: ¿Qué necesito para registrarme? Solo 3 cosas" data-zoom>
@@ -1244,9 +1242,11 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
     const imgs=[...sc.querySelectorAll('img')],barsEl=sc.querySelector('.bars');
     const thumbs=[...(sc.closest('.stage').querySelectorAll('[data-story-thumbs] img'))];
     barsEl.innerHTML=imgs.map(()=>'<i><b></b></i>').join('');
+    const blur=document.createElement('div');blur.className='blur';sc.prepend(blur);
     const bars=[...barsEl.children];const DUR=3600;let k=0,t=null;
     const show=n=>{k=(n+imgs.length)%imgs.length;
       imgs.forEach((im,j)=>im.classList.toggle('cur',j===k));
+      blur.style.backgroundImage='url("'+imgs[k].getAttribute('src')+'")';
       thumbs.forEach((im,j)=>im.classList.toggle('cur',j===k));
       bars.forEach((b,j)=>{b.className='';if(j<k)b.classList.add('done')});
       void bars[k].offsetWidth;bars[k].classList.add('go');bars[k].style.setProperty('--dur',DUR+'ms');
