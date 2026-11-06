@@ -35,10 +35,10 @@ button{font:inherit;color:inherit}
 .slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   padding-block:calc(64px + env(safe-area-inset-top,0px)) calc(84px + env(safe-area-inset-bottom,0px));
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
-  opacity:0;visibility:hidden;transform:translateX(calc(var(--dir,1)*6%)) scale(.97);
+  opacity:0;visibility:hidden;transform:translateY(calc(var(--dir,1)*8%)) scale(.97);
   transition:opacity .6s var(--ease),transform .8s var(--ease),visibility 0s .8s;overflow:hidden}
 .slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .6s var(--ease),transform .8s var(--ease),visibility 0s}
-.slide.past{transform:translateX(calc(var(--dir,1)*-6%)) scale(.97)}
+.slide.past{transform:translateY(calc(var(--dir,1)*-8%)) scale(.97)}
 .bg-orange{background:var(--orange)}
 .bg-ink{background:var(--ink)}
 .bg-blue{background:var(--blue)}
@@ -431,6 +431,22 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 .btn:active{transform:scale(.95)}
 .btn svg{width:18px;height:18px}
 .nav{display:flex;gap:8px}
+.side{position:fixed;top:50%;z-index:22;translate:0 -50%;width:60px;height:60px;border-radius:50%;border:0;background:var(--white);color:var(--orange);
+  display:grid;place-items:center;cursor:pointer;box-shadow:0 12px 30px -8px rgba(0,0,0,.45),0 0 0 4px rgba(255,255,255,.25);transition:transform .25s var(--spring),opacity .3s,background .2s,color .2s}
+.side svg{width:28px;height:28px}
+.side:hover{background:var(--orange);color:var(--white);transform:scale(1.1)}
+.side:active{transform:scale(.92)}
+.side.l{left:max(18px,calc(env(safe-area-inset-left,0px) + 12px))}
+.side.r{right:max(18px,calc(env(safe-area-inset-right,0px) + 12px))}
+.side.r.pulse{animation:nudge 1.6s ease-in-out 3}
+@keyframes nudge{50%{transform:translateX(6px)}}
+.side[disabled]{opacity:0;pointer-events:none}
+.scrollcue{display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.scrollcue .mouse{width:20px;height:30px;border:2px solid currentColor;border-radius:12px;position:relative}
+.scrollcue .mouse::after{content:"";position:absolute;left:50%;top:6px;width:3px;height:6px;border-radius:2px;background:currentColor;translate:-50% 0;animation:wheel 1.6s ease-in-out infinite}
+@keyframes wheel{0%{opacity:0;transform:translateY(-2px)}40%{opacity:1}100%{opacity:0;transform:translateY(8px)}}
+@media (min-width:861px){.slide{padding-left:max(100px,env(safe-area-inset-left,0px));padding-right:max(100px,env(safe-area-inset-right,0px))}}
+@media (max-width:860px){.side{width:44px;height:44px;opacity:.92}.side svg{width:22px;height:22px}.side.l{left:8px}.side.r{right:8px}.scrollcue{display:none}}
 .slide-title{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;text-align:center;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* index panel */
@@ -510,6 +526,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
         <h1 class="a rise" style="--d:200">GOGO<br>FOOD</h1>
         <p class="lead a rise" style="--d:350">Todos los anuncios de la campaña de lanzamiento (usuarios, restaurantes y repartidores) y el plan de pauta en redes.</p>
         <div class="chips a rise" style="--d:500"><span class="chip fill">58 piezas</span><span class="chip">3 videos</span><span class="chip">1:1 · 4:5 · 9:16</span></div>
+        <div class="scrollcue a rise" style="--d:1200;align-items:flex-start"><span class="mouse"></span>Haz scroll</div>
       </div>
       <div class="stage">
         <div class="cover-stage">
@@ -1191,12 +1208,12 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   <div class="slide-title" id="slideTitle">Portada</div>
   <div class="nav">
     <button class="btn" id="fs" aria-label="Pantalla completa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
-    <button class="btn" id="prev" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-    <button class="btn" id="next" aria-label="Siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
   </div>
 </nav>
 
-<div class="hint" id="hint"><span class="d">← → para avanzar · clic en una imagen para verla completa</span><span class="m">Desliza para avanzar · toca una imagen para verla completa</span></div>
+<button class="side l" id="prev" aria-label="Diapositiva anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+<button class="side r pulse" id="next" aria-label="Diapositiva siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+<div class="hint" id="hint"><span class="d">Usa el scroll o las flechas para avanzar · clic en una imagen para verla completa</span><span class="m">Desliza o usa las flechas para avanzar · toca una imagen para verla completa</span></div>
 
 <div class="index" id="index" hidden>
   <button class="btn close" id="closeIndex" aria-label="Cerrar índice">✕</button>
@@ -1342,11 +1359,13 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
     bar.style.width=((n+1)/N*100)+'%';
     counter.textContent=pad(n+1)+' / '+pad(N);
     titleEl.textContent=slides[n].dataset.title||'';
+    prevBtn.disabled=n===0;nextBtn.disabled=n===N-1;
     try{history.replaceState(null,'','#slide-'+(n+1))}catch(e){}
   }
   const next=()=>go(cur+1),prev=()=>go(cur-1);
-  document.getElementById('next').addEventListener('click',next);
-  document.getElementById('prev').addEventListener('click',prev);
+  const prevBtn=document.getElementById('prev'),nextBtn=document.getElementById('next');
+  nextBtn.addEventListener('click',()=>{nextBtn.classList.remove('pulse');next()});
+  prevBtn.addEventListener('click',prev);
 
   const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg');
   const idx=document.getElementById('index');
@@ -1354,17 +1373,38 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
     if(!lb.hidden){if(e.key==='Escape'||e.key===' '||e.key==='Enter'){lb.hidden=true;e.preventDefault()}return}
     if(!idx.hidden){if(e.key==='Escape')idx.hidden=true;return}
     if(e.target.closest&&e.target.closest('input,textarea,select'))return;
-    if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next()}
-    else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();next()}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();prev()}
     else if(e.key==='Home')go(0);else if(e.key==='End')go(N-1);
     else if(e.key==='f'||e.key==='F')toggleFs();
   });
 
-  // swipe
-  let sx=null,sy=null;
-  document.getElementById('deck').addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+  // scroll: advance one slide per wheel gesture; a slide with its own scrollable content scrolls first
+  const atTop=s=>s.scrollTop<=2, atBottom=s=>s.scrollTop+s.clientHeight>=s.scrollHeight-2;
+  let wheelLock=false,lockUntil=0,wheelQuiet=null;
+  document.getElementById('deck').addEventListener('wheel',e=>{
+    if(!lb.hidden||!idx.hidden)return;
+    if(Math.abs(e.deltaX)>Math.abs(e.deltaY))return;
+    if(e.target.closest('input'))return;
+    const s=slides[cur];
+    if(e.deltaY>0&&!atBottom(s))return;
+    if(e.deltaY<0&&!atTop(s))return;
+    e.preventDefault();
+    clearTimeout(wheelQuiet);wheelQuiet=setTimeout(()=>{wheelLock=false},220);
+    if(wheelLock||performance.now()<lockUntil||Math.abs(e.deltaY)<6)return;
+    wheelLock=true;lockUntil=performance.now()+700;
+    nextBtn.classList.remove('pulse');
+    e.deltaY>0?next():prev();
+  },{passive:false});
+
+  // swipe: horizontal always; vertical when the slide is already at its top or bottom
+  let sx=null,sy=null,startTop=true,startBottom=true;
+  document.getElementById('deck').addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;const s=slides[cur];startTop=atTop(s);startBottom=atBottom(s)},{passive:true});
   document.getElementById('deck').addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
-    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.4&&!e.target.closest('.pano-wrap,.ig-view,input,.gantt-wrap')){dx<0?next():prev()}sx=null},{passive:true});
+    const skip=e.target.closest('.pano-wrap,.ig-view,input,.gantt-wrap');
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.4&&!skip){dx<0?next():prev()}
+    else if(Math.abs(dy)>70&&Math.abs(dy)>Math.abs(dx)*1.4){if(dy<0&&startBottom)next();else if(dy>0&&startTop)prev()}
+    sx=null},{passive:true});
 
   // lightbox
   document.addEventListener('click',e=>{const im=e.target.closest('img[data-zoom]');if(!im||!im.closest('.slide.on'))return;
