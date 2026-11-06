@@ -35,10 +35,10 @@ button{font:inherit;color:inherit}
 .slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   padding-block:calc(64px + env(safe-area-inset-top,0px)) calc(84px + env(safe-area-inset-bottom,0px));
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
-  opacity:0;visibility:hidden;transform:translateY(calc(var(--dir,1)*8%)) scale(.97);
+  opacity:0;visibility:hidden;transform:translateX(calc(var(--dir,1)*6%)) scale(.97);
   transition:opacity .6s var(--ease),transform .8s var(--ease),visibility 0s .8s;overflow:hidden}
 .slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .6s var(--ease),transform .8s var(--ease),visibility 0s}
-.slide.past{transform:translateY(calc(var(--dir,1)*-8%)) scale(.97)}
+.slide.past{transform:translateX(calc(var(--dir,1)*-6%)) scale(.97)}
 .bg-orange{background:var(--orange)}
 .bg-ink{background:var(--ink)}
 .bg-blue{background:var(--blue)}
@@ -136,7 +136,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 
 /* ---------- branding ---------- */
 .boards{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
-.boards img{height:min(64vh,600px);max-width:48%;width:auto;position:relative}
+.boards img{height:auto;width:auto;max-height:min(64vh,600px);max-width:48%;position:relative}
 .boards img:first-child{rotate:-4deg;margin-right:-4%;z-index:1}
 .boards img:last-child{rotate:4deg;translate:0 20px}
 .swatches{display:flex;gap:10px}
@@ -159,10 +159,10 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 /* ---------- formats row ---------- */
 .formats{display:flex;align-items:flex-end;justify-content:center;gap:clamp(12px,2vw,28px);width:100%;height:100%}
 .formats figure{margin:0;display:flex;flex-direction:column;gap:10px;align-items:center;min-width:0}
-.formats .f11 img{height:min(34vh,330px)}
-.formats .f45 img{height:min(44vh,410px)}
-.formats .f916 img{height:min(58vh,540px)}
-.formats img{width:auto;max-width:100%}
+.formats .f11 img{max-height:min(34vh,330px)}
+.formats .f45 img{max-height:min(44vh,410px)}
+.formats .f916 img{max-height:min(58vh,540px)}
+.formats img{width:auto;height:auto;max-width:100%}
 
 /* ---------- instagram carousel ---------- */
 .ig{width:min(100%,430px);background:var(--white);color:var(--ink);border-radius:18px;overflow:hidden;box-shadow:0 40px 80px -20px rgba(0,0,0,.6)}
@@ -290,7 +290,7 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 .sticker{position:absolute;left:-10%;top:30%;background:var(--blue);color:var(--white);font-weight:900;font-size:15px;padding:12px 16px;border-radius:14px;rotate:-6deg;box-shadow:0 16px 30px -10px rgba(0,0,0,.5);line-height:1.15}
 .sticker small{display:block;font-family:var(--mono);font-weight:500;font-size:11px;opacity:.9}
 .post-hero{position:relative}
-.post-hero img{height:min(64vh,600px);width:auto;max-width:100%}
+.post-hero img{height:auto;width:auto;max-height:min(64vh,600px);max-width:100%}
 
 /* FAQ */
 .faq{display:flex;flex-direction:column;gap:10px;max-width:460px}
@@ -440,7 +440,8 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 .side.r{right:max(18px,calc(env(safe-area-inset-right,0px) + 12px))}
 .side.r.pulse{animation:nudge 1.6s ease-in-out 3}
 @keyframes nudge{50%{transform:translateX(6px)}}
-.side[disabled]{opacity:0;pointer-events:none}
+.side[disabled],.side.hide{opacity:0;pointer-events:none}
+.side{transition:transform .25s var(--spring),opacity .5s ease,background .2s,color .2s}
 .scrollcue{display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
 .scrollcue .mouse{width:20px;height:30px;border:2px solid currentColor;border-radius:12px;position:relative}
 .scrollcue .mouse::after{content:"";position:absolute;left:50%;top:6px;width:3px;height:6px;border-radius:2px;background:currentColor;translate:-50% 0;animation:wheel 1.6s ease-in-out infinite}
@@ -1379,6 +1380,11 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
     else if(e.key==='f'||e.key==='F')toggleFs();
   });
 
+  // arrows step aside while the viewer scrolls or swipes, and come back 4 s after the last movement
+  let arrowTimer=null;
+  function hideArrows(){prevBtn.classList.add('hide');nextBtn.classList.add('hide');clearTimeout(arrowTimer);
+    arrowTimer=setTimeout(()=>{prevBtn.classList.remove('hide');nextBtn.classList.remove('hide')},4000)}
+  document.getElementById('deck').addEventListener('scroll',hideArrows,{capture:true,passive:true});
   // scroll: advance one slide per wheel gesture; a slide with its own scrollable content scrolls first
   const atTop=s=>s.scrollTop<=2, atBottom=s=>s.scrollTop+s.clientHeight>=s.scrollHeight-2;
   let wheelLock=false,lockUntil=0,wheelQuiet=null;
@@ -1389,10 +1395,10 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
     const s=slides[cur];
     if(e.deltaY>0&&!atBottom(s))return;
     if(e.deltaY<0&&!atTop(s))return;
-    e.preventDefault();
+    e.preventDefault();hideArrows();
     clearTimeout(wheelQuiet);wheelQuiet=setTimeout(()=>{wheelLock=false},220);
     if(wheelLock||performance.now()<lockUntil||Math.abs(e.deltaY)<6)return;
-    wheelLock=true;lockUntil=performance.now()+700;
+    wheelLock=true;lockUntil=performance.now()+700;hideArrows();
     nextBtn.classList.remove('pulse');
     e.deltaY>0?next():prev();
   },{passive:false});
@@ -1402,8 +1408,8 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   document.getElementById('deck').addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;const s=slides[cur];startTop=atTop(s);startBottom=atBottom(s)},{passive:true});
   document.getElementById('deck').addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
     const skip=e.target.closest('.pano-wrap,.ig-view,input,.gantt-wrap');
-    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.4&&!skip){dx<0?next():prev()}
-    else if(Math.abs(dy)>70&&Math.abs(dy)>Math.abs(dx)*1.4){if(dy<0&&startBottom)next();else if(dy>0&&startTop)prev()}
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.4&&!skip){hideArrows();dx<0?next():prev()}
+    else if(Math.abs(dy)>70&&Math.abs(dy)>Math.abs(dx)*1.4){if(dy<0&&startBottom){hideArrows();next()}else if(dy>0&&startTop){hideArrows();prev()}}
     sx=null},{passive:true});
 
   // lightbox
