@@ -88,22 +88,25 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 .fmt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85;text-align:center}
 
 /* ---------- phone frame ---------- */
-.phone{position:relative;height:min(68vh,640px);aspect-ratio:9/19;max-width:100%;border-radius:40px;background:#0b0b0b;padding:10px;
+.phone{position:relative;max-width:100%;border-radius:40px;background:#0b0b0b;padding:10px;
   box-shadow:0 0 0 2px #333,0 40px 80px -20px rgba(0,0,0,.7)}
-.phone::after{content:"";position:absolute;top:18px;left:50%;width:80px;height:22px;border-radius:12px;background:#0b0b0b;transform:translateX(-50%);z-index:3}
-.screen{position:relative;width:100%;height:100%;border-radius:31px;overflow:hidden;background:var(--orange-deep)}
+.phone::after{content:"";position:absolute;top:3px;left:50%;width:54px;height:4px;border-radius:2px;background:#2a2a2a;transform:translateX(-50%);z-index:3}
+.screen{position:relative;height:min(calc(68vh - 20px),620px);aspect-ratio:9/16;max-width:100%;border-radius:31px;overflow:hidden;background:var(--orange-deep)}
 .screen img,.screen video{width:100%;height:100%;object-fit:cover}
 
 /* story player */
-.story img{position:absolute;inset:0;opacity:0;transform:scale(1.08);transition:opacity .6s var(--ease),transform 4s linear}
-.story img.cur{opacity:1;transform:scale(1)}
-.bars{position:absolute;top:46px;left:12px;right:12px;display:flex;gap:4px;z-index:4}
+.story img{position:absolute;inset:0;opacity:0;transition:opacity .6s var(--ease)}
+.story img.cur{opacity:1}
+/* the phone sways gently; the artwork inside stays still and uncropped */
+.slide.on .phone.a{animation:pop .9s var(--spring) both,sway 7s ease-in-out infinite alternate;animation-delay:calc(var(--d,0)*1ms),1.2s}
+@keyframes sway{0%{translate:0 0;rotate:-1.2deg}100%{translate:0 -12px;rotate:1.2deg}}
+.bars{position:absolute;top:12px;left:12px;right:12px;display:flex;gap:4px;z-index:4}
 .bars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.35);overflow:hidden}
 .bars b{display:block;height:100%;width:0;background:var(--white)}
 .bars i.done b{width:100%}
 .bars i.go b{animation:fill var(--dur,3.6s) linear forwards}
 @keyframes fill{to{width:100%}}
-.story-head{position:absolute;top:58px;left:14px;z-index:4;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800}
+.story-head{position:absolute;top:22px;left:14px;z-index:4;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800}
 .story-head span{width:26px;height:26px;border-radius:50%;background:var(--white);color:var(--orange);display:grid;place-items:center;font-size:8px;line-height:.8;font-weight:900;text-align:center}
 
 /* thumbs beside story */
@@ -242,14 +245,14 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
 
 /* ---------- ken burns stories ---------- */
 .kb{display:flex;gap:clamp(10px,1.6vw,22px);align-items:center;justify-content:center;width:100%}
-.kb .k{height:min(62vh,580px);aspect-ratio:9/16;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);flex:0 1 auto;min-width:0}
+.kb .k{width:min(31%,calc(min(62vh,580px) * .5625));height:auto;aspect-ratio:9/16;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);flex:0 0 auto;min-width:0}
 .kb .k:nth-child(2){translate:0 -24px}
 .kb .k:nth-child(3){translate:0 18px}
 .kb .k img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
-.slide.on .kb .k img{animation:kenburns 9s ease-in-out infinite alternate}
-.slide.on .kb .k:nth-child(2) img{animation-delay:-3s}
-.slide.on .kb .k:nth-child(3) img{animation-delay:-6s}
-@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.12) translate(-2%,-3%)}}
+.slide.on .kb .k.a{animation:rise .9s var(--ease) both,tilt 6s ease-in-out infinite alternate;animation-delay:calc(var(--d,0)*1ms),1.2s}
+.slide.on .kb .k:nth-child(2).a{animation-delay:calc(var(--d,0)*1ms),-2s}
+.slide.on .kb .k:nth-child(3).a{animation-delay:calc(var(--d,0)*1ms),-4s}
+@keyframes tilt{from{rotate:-1.5deg}to{rotate:1.5deg}}
 
 /* ---------- layered (registra) ---------- */
 .layer{position:relative;width:min(100%,620px);height:min(64vh,600px)}
@@ -483,7 +486,8 @@ p.lead{font-size:clamp(15px,1.35vw,19px);line-height:1.55;font-weight:500;margin
   .step{flex-direction:row;align-items:center}
   .step>div{display:flex;flex-direction:column;gap:4px}
   .step .n{flex:0 0 68px}
-  .phone{height:min(70vh,560px)}
+  .screen{height:min(66vh,520px)}
+  .thumbs{display:none}
   .boards img{height:auto;max-width:48%}
   .formats .f11 img{height:auto;width:100%}
   .formats .f45 img{height:auto;width:100%}
